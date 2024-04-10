@@ -34,6 +34,11 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
+      - name: Configure Git
+        run: |
+          git config --global user.email "dhruv.modi2345@gmail.com"
+          git config --global user.name "Dhruv Modi"
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
