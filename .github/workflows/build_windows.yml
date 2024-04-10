@@ -37,6 +37,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Set Tag
+        run: git tag -a v1.6 -m "Version 1.6"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Tag
+        run: git push origin v1.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
@@ -45,9 +55,9 @@ jobs:
         with:
           files: |
             dist/win_main.exe
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: v1.6
+          release_name: v1.6
           body: |
-            Windows Executable for ${{ github.ref }}
+            Windows Executable for v1.6
           draft: false
           prerelease: false
