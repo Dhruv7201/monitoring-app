@@ -31,8 +31,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git tag -a v1.0 -m "Version 1.0"
-          git push origin v1.0
+          git tag -a v1.5 -m "Version 1.5"
+          git push origin v1.5
 
       - name: Upload Executable
         uses: actions/upload-artifact@v2
