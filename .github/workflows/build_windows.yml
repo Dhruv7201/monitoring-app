@@ -27,15 +27,27 @@ jobs:
         run: |
           pyinstaller --onefile --noconsole win_main.py
 
-      - name: Tag and Push
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git tag -a v1.5 -m "Version 1.5"
-          git push origin v1.5
+  deploy-tag:
+    name: Deploy Windows Executable
+    runs-on: windows-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
 
-      - name: Upload Executable
-        uses: actions/upload-artifact@v2
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: windows-executable
-          path: dist/win_main.exe
+          files: |
+            dist/win_main.exe
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: |
+            Windows Executable for ${{ github.ref }}
+          draft: false
+          prerelease: false
