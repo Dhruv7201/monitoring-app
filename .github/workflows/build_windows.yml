@@ -60,7 +60,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./windows-executable/win_main.exe
+          asset_path: ./win_main.exe
           asset_name: win_main.exe
           asset_content_type: application/octet-stream
           
